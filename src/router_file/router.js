@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import NavBar from "@/components/NavBar.vue";
 import HomePage from "@/components/HomePage.vue";
 import Calendar from "@/components/Calendar.vue";
 import Tasks from "@/components/Tasks.vue";
 import PageNotFound from "@/components/PageNotFound.vue";
+import ToDoList from "@/components/ToDoList.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
-            name: 'Home',
+            name: 'HomePage',
             component: HomePage
         },
         {
@@ -24,9 +24,9 @@ const router = createRouter({
             component: Tasks
         },
         {
-            path: '/',
-            name: 'NavBar',
-            component: NavBar
+            path: '/to-do-list',
+            name: 'ToDoList',
+            component: ToDoList
         },
         {
             path: '/:catchAll(.*)',
