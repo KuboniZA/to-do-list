@@ -1,10 +1,19 @@
 <script setup>
+//Router import
+import { useRouter} from "vue-router";
 
+//DO NOT FORGET PARENTHESIS WHEN YOU USE useRouter()!!!
+const router = useRouter();
+
+const enterToDoList = () => {
+  router.push("/to-do-list");
+}
 </script>
 
 <template>
   <section>
-    <RouterLink to="/to-do-list" class="welcome">Welcome to List It!</RouterLink>
+    <p class="welcome">Welcome to List It!</p>
+    <p class="enterSite">Click <span @click="enterToDoList">enter</span> to begin</p>
   </section>
 </template>
 
@@ -13,15 +22,22 @@ section {
   position: absolute;
   display: flex;
   align-items: center;
-  top: 40vh;
+  top: 16vh;
   left: 10%;
   font-size: 10rem;
 }
-.welcome:hover {
+.enterSite {
+  position: absolute;
+  top: 34vh;
+  left: 30%;
+  font-size: 4rem;
+}
+span {
+  color: blue;
+  text-decoration: underline;
+}
+span:hover {
   cursor: pointer;
 }
-a {
-  text-decoration: none;
-  color: black;
-}
+
 </style>
