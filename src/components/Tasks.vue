@@ -10,9 +10,11 @@
   const endTime = ref();
 
   const router = useRouter();
+
   const enterToDoList = () => {
     router.push("/to-do-list");
   }
+
 </script>
 
 <template>
@@ -32,10 +34,15 @@
         <VueDatePicker v-model="endDate" :time-config="{enableTimePicker: false}" class="queryDetails" />
       </div>
       <div class="query q3">Start Time:
+      <!-- The code :time-picker="{enableDatePicker: false}" should not be used according to the warning,
+      however the "timeOnly" propo, as suggested by the documentation, does not work flat out.
+      Maybe a pull request is need in their github repo.-->
         <VueDatePicker v-model="startTime" :time-picker="{enableDatePicker: false}" class="queryDetails" />
       </div>
+      <!-- Need to figure out how to increment the time by 5 minutes when selecting a time.
+      The below and current reading is not working. -->
       <div class="query q3">End Time:
-        <VueDatePicker v-model="endTime" :time-picker="{enableDatePicker: false}" class="queryDetails" />
+        <VueDatePicker v-model="endTime" :time-picker="{enableDatePicker: false}" :time-config="{minutesGridIncrement: 5}" class="queryDetails" />
       </div>
     </div>
     <button @click="enterToDoList">SUBMIT</button>
