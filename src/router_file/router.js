@@ -19,7 +19,7 @@ const router = createRouter({
             component: Calendar
         },
         {
-            path: '/tasks',
+            path: '/add-tasks',
             name: 'Tasks',
             component: Tasks
         },

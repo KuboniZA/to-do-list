@@ -8,7 +8,7 @@
       <div class="notepad-ring-holder">
         <div class="ring"></div>
         <div class="ring"></div>
-        <div class="lis-name">To-Do-List</div>
+        <div class="lis-name">To-Do-List *Date* </div>
         <div class="ring"></div>
         <div class="ring"></div>
       </div>
@@ -34,7 +34,7 @@
       <div class="notepad-ring-holder">
         <div class="ring"></div>
         <div class="ring"></div>
-        <div class="lis-name">To-Do-List</div>
+        <div class="lis-name">To-Do-List *Date*</div>
         <div class="ring"></div>
         <div class="ring"></div>
       </div>

@@ -10,10 +10,10 @@ import { RouterLink } from "vue-router";
       <RouterLink to="/">Home</RouterLink>
     </button>
     <button class="navButton">
-      <RouterLink to="/to-do-list">To-Do-List</RouterLink>
+      <RouterLink to="/add-tasks">Add Tasks</RouterLink>
     </button>
     <button class="navButton">
-      <RouterLink to="/tasks">Tasks</RouterLink>
+      <RouterLink to="/to-do-list">To-Do-List</RouterLink>
     </button>
     <button class="navButton">
       <RouterLink to="/calendar">Calendar</RouterLink>

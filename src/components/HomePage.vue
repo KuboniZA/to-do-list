@@ -2,18 +2,18 @@
 //Router import
 import { useRouter} from "vue-router";
 
-//DO NOT FORGET PARENTHESIS WHEN YOU USE useRouter()!!!
+//DO NOT FORGET PARENTHESIS WHEN CALLING useRouter()!!!
 const router = useRouter();
 
-const enterToDoList = () => {
-  router.push("/to-do-list");
+const goToTasks = () => {
+  router.push("/add-tasks");
 }
 </script>
 
 <template>
   <section>
     <p class="welcome">Welcome to List It!</p>
-    <p class="enterSite">Click <span @click="enterToDoList">enter</span> to begin</p>
+    <p class="enterSite">Click <span @click="goToTasks">enter</span> to begin</p>
   </section>
 </template>
 
