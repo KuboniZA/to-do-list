@@ -1,5 +1,14 @@
 <script setup>
   import { useRouter } from "vue-router";
+  import { ref } from "vue";
+  import { VueDatePicker } from "@vuepic/vue-datepicker";
+  import '@vuepic/vue-datepicker/dist/main.css'
+
+  const startDate = ref();
+  const endDate = ref();
+  const startTime = ref();
+  const endTime = ref();
+
   const router = useRouter();
   const enterToDoList = () => {
     router.push("/to-do-list");
@@ -17,16 +26,16 @@
         <input class="queryDetails">
       </div>
       <div class="query q2">Start Date:
-        <input class="queryDetails">
+        <VueDatePicker v-model="startDate" :time-config="{enableTimePicker: false}" class="queryDetails" />
       </div>
       <div class="query q2">End Date:
-        <input class="queryDetails">
+        <VueDatePicker v-model="endDate" :time-config="{enableTimePicker: false}" class="queryDetails" />
       </div>
       <div class="query q3">Start Time:
-        <input class="queryDetails">
+        <VueDatePicker v-model="startTime" :time-picker="{enableDatePicker: false}" class="queryDetails" />
       </div>
       <div class="query q3">End Time:
-        <input class="queryDetails">
+        <VueDatePicker v-model="endTime" :time-picker="{enableDatePicker: false}" class="queryDetails" />
       </div>
     </div>
     <button @click="enterToDoList">SUBMIT</button>
