@@ -1,4 +1,5 @@
 <script setup>
+import {ref} from "vue";
 
 </script>
 
@@ -14,19 +15,28 @@
       </div>
     </div>
     <div class="notepad-paper">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+
     </div>
   </div>
   <div class="notepad-container-2">
@@ -40,19 +50,27 @@
       </div>
     </div>
     <div class="notepad-paper">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
-      <input class="line">
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
     </div>
   </div>
 </template>
