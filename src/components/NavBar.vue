@@ -15,9 +15,9 @@ import { RouterLink } from "vue-router";
     <button class="navButton">
       <RouterLink to="/to-do-list">To-Do-List</RouterLink>
     </button>
-    <button class="navButton">
-      <RouterLink to="/calendar">Calendar</RouterLink>
-    </button>
+<!--    <button class="navButton">-->
+<!--      <RouterLink to="/calendar">Calendar</RouterLink>-->
+<!--    </button>-->
   </nav>
 </template>
 
@@ -25,7 +25,7 @@ import { RouterLink } from "vue-router";
   .navBar {
     display: flex;
     position: absolute;
-    width: 100vw;
+    width: 100%;
     min-height: 10vh;
     background-color: lightblue;
     top: 0;

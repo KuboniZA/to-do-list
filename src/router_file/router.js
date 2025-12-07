@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from "@/components/HomePage.vue";
-import Calendar from "@/components/Calendar.vue";
+// import Calendar from "@/components/Calendar.vue";
 import Tasks from "@/components/Tasks.vue";
 import PageNotFound from "@/components/PageNotFound.vue";
 import ToDoList from "@/components/ToDoList.vue";
@@ -13,11 +13,11 @@ const router = createRouter({
             name: 'HomePage',
             component: HomePage
         },
-        {
-            path: '/calendar',
-            name: 'Calendar',
-            component: Calendar
-        },
+        // {
+        //     path: '/calendar',
+        //     name: 'Calendar',
+        //     component: Calendar
+        // },
         {
             path: '/add-tasks',
             name: 'Tasks',

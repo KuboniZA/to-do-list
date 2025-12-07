@@ -3,6 +3,7 @@
   import { ref } from "vue";
   import { VueDatePicker } from "@vuepic/vue-datepicker";
   import '@vuepic/vue-datepicker/dist/main.css'
+  // import { ClockIcon } from "@heroicons/vue/24/outline/index"; // Don't add .d.ts here as I'm not using typscript
 
   const startDate = ref();
   const endDate = ref();
@@ -28,21 +29,18 @@
         <input class="queryDetails">
       </div>
       <div class="query q2">Start Date:
-        <VueDatePicker v-model="startDate" :time-config="{enableTimePicker: false}" class="queryDetails" />
+        <VueDatePicker v-model="startDate" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
       </div>
       <div class="query q2">End Date:
-        <VueDatePicker v-model="endDate" :time-config="{enableTimePicker: false}" class="queryDetails" />
+        <VueDatePicker v-model="endDate" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
       </div>
       <div class="query q3">Start Time:
-      <!-- The code :time-picker="{enableDatePicker: false}" should not be used according to the warning,
-      however the "timeOnly" propo, as suggested by the documentation, does not work flat out.
-      Maybe a pull request is need in their github repo.-->
-        <VueDatePicker v-model="startTime" :time-picker="{enableDatePicker: false}" class="queryDetails" />
+      <!-- Writing "time-picker has resolved the issue and I can now just select the time with no date.-->
+        <VueDatePicker v-model="startTime" time-picker class="queryDetails" />
       </div>
-      <!-- Need to figure out how to increment the time by 5 minutes when selecting a time.
-      The below and current reading is not working. -->
+      <!-- Click on on the minutes to increment by 5 -->
       <div class="query q3">End Time:
-        <VueDatePicker v-model="endTime" :time-picker="{enableDatePicker: false}" :time-config="{minutesGridIncrement: 5}" class="queryDetails" />
+        <VueDatePicker v-model="endTime" time-picker class="queryDetails" />
       </div>
     </div>
     <button @click="enterToDoList">SUBMIT</button>
