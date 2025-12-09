@@ -1,18 +1,25 @@
 <script setup>
 import { RouterLink } from "vue-router";
+import {ref} from "vue";
+
+const clicked = ref(false);
+const handleClick = (buttonName) => { /* Just write this form of function when using a router to do other things */
+  clicked.value = buttonName;
+}
+
 </script>
 
 <template>
   <nav class="navBar">
     <img src="@/assets/list_it_logo_2.svg" alt="The List It! Logo" class="logo" />
 
-    <button class="navButton">
+    <button class="navButton" :class="clicked === 'Home' ? 'active' : ''" @click="handleClick('Home')">
       <RouterLink to="/">Home</RouterLink>
     </button>
-    <button class="navButton">
+    <button  class="navButton" :class="clicked === 'AddTasks' ? 'active' : ''" @click="handleClick('AddTasks')">
       <RouterLink to="/add-tasks">Add Tasks</RouterLink>
     </button>
-    <button class="navButton">
+    <button class="navButton" :class="clicked === 'To-Do-List' ? 'active' : ''" @click="handleClick('To-Do-List')">
       <RouterLink to="/to-do-list">To-Do-List</RouterLink>
     </button>
 <!--    <button class="navButton">-->
@@ -48,8 +55,18 @@ import { RouterLink } from "vue-router";
     background-color: lightblue;
     text-align: left;
   }
+  a { /* This remain "a" even though the Vue attribute is RouterLink */
+    text-decoration: none;
+    color: black;
+  }
   button:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
+    background-color: lightblue; /* Alternate colour #f1f1f1 */
+  }
+  a:hover {
+    color: blue;
+  }
+  .active {
+    color: red; /* The font weight changes, but the colour doesn't for some reason */
+    font-weight: bold;
   }
 </style>
