@@ -1,20 +1,59 @@
 <script setup>
-import {ref} from "vue";
+import {ref, computed} from "vue";
+
+// Reactive base date (starts at today)
+const currentDate = ref(new Date());
+
+// Nicely formatted version for display
+const formattedDate = computed(() => {
+  return currentDate.value.toLocaleDateString("en-ZA", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+});
+
+// Move by DAY
+const changeDay = (amount) => {
+  const newDate = new Date(currentDate.value);
+  newDate.setDate(newDate.getDate() + amount);
+  currentDate.value = newDate;
+};
+
+// Move by WEEK
+const changeWeek = (amount) => {
+  changeDay(amount * 7);
+};
+
+// Move by MONTH
+const changeMonth = (amount) => {
+  const newDate = new Date(currentDate.value);
+  newDate.setMonth(newDate.getMonth() + amount);
+  currentDate.value = newDate;
+};
 
 </script>
 
 <template>
   <div class="notepad-container">
     <div class="notepad-header">
-      <div class="notepad-ring-holder">
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="lis-name">To-Do-List *Date* </div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-      </div>
+      <div class="list-name">To-Do-list</div>
+        <div class="notepad-ring-holder">
+          <div class="date-controls">
+            <button @click="changeDay(-1)">◀ Day</button>
+            <button @click="changeWeek(-1)">◀ Week</button>
+            <button @click="changeMonth(-1)">◀ Month</button>
+            <div class="list-date">{{ formattedDate }} </div>
+            <button @click="changeDay(1)">Day ▶</button>
+            <button @click="changeWeek(1)">Week ▶</button>
+            <button @click="changeMonth(1)">Month ▶</button>
+          </div>
+        </div>
     </div>
     <div class="notepad-paper">
+      <div class="line" />
+      <div class="line" />
       <div class="line" />
       <div class="line" />
       <div class="line" />
@@ -37,40 +76,6 @@ import {ref} from "vue";
       <div class="line" />
       <div class="line" />
 
-    </div>
-  </div>
-  <div class="notepad-container-2">
-    <div class="notepad-header">
-      <div class="notepad-ring-holder">
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="lis-name">To-Do-List *Date*</div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-      </div>
-    </div>
-    <div class="notepad-paper">
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
-      <div class="line" />
     </div>
   </div>
 </template>
@@ -87,8 +92,8 @@ body {
 }
 
 .notepad-container {
-  width: 30vw;
-  height: 550px;
+  width: 50vw;
+  height: 39rem;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -97,23 +102,8 @@ body {
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  top: 10rem;
-  left: 15vw;
-}
-
-.notepad-container-2 {
-  width: 30vw;
-  height: 550px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  top: -24.5rem;
-  left: 50vw;
+  top: 8rem;
+  left: 25vw;
 }
 
 .notepad-header {
@@ -123,19 +113,40 @@ body {
   display: flex;
   justify-content: center;
   position: relative;
+  min-height: 55px;
 }
 
+.list-name {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  left: 45%;
+}
+.list-date {
+  margin-right: 1.5rem;
+}
 .notepad-ring-holder {
   display: flex;
   gap: 30px;
 }
 
-.ring {
-  width: 15px;
-  height: 15px;
-  background-color: #aaa;
-  border-radius: 50%;
-  border: 1px solid #888;
+.date-controls {
+  display: flex;
+  position: relative;
+  top: 55%;
+}
+button {
+  height: 30px;
+  display: flex;
+  gap: 10px;
+  border: none;
+  background-color: transparent;
+  margin-right: 1.5rem;
+
+}
+button:hover {
+  cursor: pointer;
+  color: blue;
 }
 
 .notepad-paper {

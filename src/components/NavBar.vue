@@ -39,6 +39,7 @@ const handleClick = (buttonName) => { /* Just write this form of function when u
     left: 0;
     border-bottom: 2px solid transparent;
     border-image: linear-gradient(to right, red, yellow) 1;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
   }
   img {
     position: relative;
