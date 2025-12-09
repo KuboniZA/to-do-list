@@ -4,6 +4,9 @@ import {ref, computed} from "vue";
 // Reactive base date (starts at today)
 const currentDate = ref(new Date());
 
+// Tooltip visibility
+const showTooltip = ref(false);
+
 // Nicely formatted version for display
 const formattedDate = computed(() => {
   return currentDate.value.toLocaleDateString("en-ZA", {
@@ -13,6 +16,11 @@ const formattedDate = computed(() => {
     year: "numeric"
   });
 });
+
+// Go back to TODAY when title is clicked
+const goToToday = () => {
+  currentDate.value = new Date();
+};
 
 // Move by DAY
 const changeDay = (amount) => {
@@ -33,21 +41,40 @@ const changeMonth = (amount) => {
   currentDate.value = newDate;
 };
 
+const showInfo = ref(null);
+
 </script>
 
 <template>
   <div class="notepad-container">
     <div class="notepad-header">
-      <div class="list-name">To-Do-list</div>
+      <div class="list-name" >
+        <span @click="goToToday" @mouseenter="showTooltip = true" @mouseleave="showTooltip = false">To-Do-list</span>
+        <span v-if="showTooltip" class="tooltip">Click to reset</span>
+      </div>
         <div class="notepad-ring-holder">
           <div class="date-controls">
-            <button @click="changeDay(-1)">◀ Day</button>
-            <button @click="changeWeek(-1)">◀ Week</button>
-            <button @click="changeMonth(-1)">◀ Month</button>
+            <button @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
+              <span v-if="showInfo === 'day-before'" class="info i1">Go back 1 day</span>
+            </button>
+            <button @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = null">◀ Week
+              <span v-if="showInfo ==='week-before'" class="info i2">Go back 1 week</span>
+            </button>
+            <button @click="changeMonth(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
+              <span v-if="showInfo === 'month-before'" class="info i3">Go back 1 month</span>
+            </button>
+
             <div class="list-date">{{ formattedDate }} </div>
-            <button @click="changeDay(1)">Day ▶</button>
-            <button @click="changeWeek(1)">Week ▶</button>
-            <button @click="changeMonth(1)">Month ▶</button>
+
+            <button @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = null">Day ▶
+              <span v-if="showInfo === 'day-after'" class="info i4">Go forward 1 day</span>
+            </button>
+            <button @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = null">Week ▶
+              <span v-if="showInfo === 'week-after'" class="info i5">Go forward 1 week</span>
+            </button>
+            <button @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = null">Month ▶
+              <span v-if="showInfo === 'month-after'" class="info i6">Go forward 1 month</span>
+            </button>
           </div>
         </div>
     </div>
@@ -121,6 +148,59 @@ body {
   position: absolute;
   justify-content: center;
   left: 45%;
+}
+.list-name:hover {
+  cursor: pointer;
+}
+.tooltip {
+  position: absolute;
+  top: -0.25rem;
+  left: 5rem;
+  background: lightgrey;
+  color: black;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0.9;
+  pointer-events: none;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+.info {
+  position: absolute;
+  background: lightgrey;
+  color: black;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0.9;
+  pointer-events: none;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+.i1 {
+  top: -2rem;
+  left: 0;
+}
+.i2 {
+  top: -2rem;
+  left: 5rem;
+}
+.i3 {
+  top: -2rem;
+  left: 10.5rem;
+}
+.i4 {
+  top: -2rem;
+  right: 8.5rem;
+}
+.i5 {
+  top: -2rem;
+  right: 3.5rem;
+}
+.i6 {
+  top: -2rem;
+  right: -2.25rem;
 }
 .list-date {
   margin-right: 1.5rem;
