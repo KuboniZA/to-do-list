@@ -5,7 +5,11 @@ import { RouterView } from "vue-router"
 
 <template>
   <NavBar />
-  <RouterView />
+  <RouterView v-slot="{ Component }" >
+    <transition name="page" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </RouterView>
 
 </template>
 

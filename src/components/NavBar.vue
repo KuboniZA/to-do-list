@@ -1,11 +1,7 @@
 <script setup>
 import { RouterLink } from "vue-router";
-import {ref} from "vue";
 
-const clicked = ref(false);
-const handleClick = (buttonName) => { /* Just write this form of function when using a router to do other things */
-  clicked.value = buttonName;
-}
+
 
 </script>
 
@@ -13,14 +9,14 @@ const handleClick = (buttonName) => { /* Just write this form of function when u
   <nav class="navBar">
     <img src="@/assets/list_it_logo_2.svg" alt="The List It! Logo" class="logo" />
 
-    <button class="navButton" :class="clicked === 'Home' ? 'active' : ''" @click="handleClick('Home')">
-      <RouterLink to="/">Home</RouterLink>
+    <button class="navButton">
+      <RouterLink to="/" active-class="active">Home</RouterLink>
     </button>
-    <button  class="navButton" :class="clicked === 'AddTasks' ? 'active' : ''" @click="handleClick('AddTasks')">
-      <RouterLink to="/add-tasks">Add Tasks</RouterLink>
+    <button  class="navButton">
+      <RouterLink to="/add-tasks" active-class="active">Add Tasks</RouterLink>
     </button>
-    <button class="navButton" :class="clicked === 'To-Do-List' ? 'active' : ''" @click="handleClick('To-Do-List')">
-      <RouterLink to="/to-do-list">To-Do-List</RouterLink>
+    <button class="navButton">
+      <RouterLink to="/to-do-list" active-class="active">To-Do-List</RouterLink>
     </button>
 <!--    <button class="navButton">-->
 <!--      <RouterLink to="/calendar">Calendar</RouterLink>-->
@@ -37,8 +33,6 @@ const handleClick = (buttonName) => { /* Just write this form of function when u
     background-color: lightblue;
     top: 0;
     left: 0;
-    border-bottom: 2px solid transparent;
-    border-image: linear-gradient(to right, red, yellow) 1;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
   }
   img {
@@ -61,13 +55,19 @@ const handleClick = (buttonName) => { /* Just write this form of function when u
     color: black;
   }
   button:hover {
-    background-color: lightblue; /* Alternate colour #f1f1f1 */
+    background-color: transparent; /* Alternate colour #f1f1f1 */
+  }
+  button:has(.active) { /* This works, but is greyed out for some reason */
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, red, yellow) 1;
   }
   a:hover {
     color: blue;
+
   }
   .active {
-    color: red; /* The font weight changes, but the colour doesn't for some reason */
+    color: blue; /* The font weight changes, but the colour doesn't for some reason */
     font-weight: bold;
+    transform: scale(1.05) translateY(-2px);
   }
 </style>
