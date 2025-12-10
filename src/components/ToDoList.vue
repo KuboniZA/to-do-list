@@ -1,6 +1,7 @@
 <script setup>
 import {ref, computed} from "vue";
 
+
 // Reactive base date (starts at today)
 const currentDate = ref(new Date());
 
@@ -41,6 +42,13 @@ const changeMonth = (amount) => {
   currentDate.value = newDate;
 };
 
+// Move by YEAR
+const changeYear = (amount) => {
+  const newDate = new Date(currentDate.value);
+  newDate.setFullYear(newDate.getFullYear() + amount); // Note that setFullYear and getFullYear because setYear/GetYear have been deprecated due to a randomisation bug.
+  currentDate.value = newDate;
+};
+
 const showInfo = ref(null);
 
 </script>
@@ -54,26 +62,34 @@ const showInfo = ref(null);
       </div>
         <div class="notepad-ring-holder">
           <div class="date-controls">
-            <button @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
-              <span v-if="showInfo === 'day-before'" class="info i1">Go back 1 day</span>
+            <button @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = null">◀ Year
+              <span v-if="showInfo === 'year-before'" class="info i1">Go back 1 year</span>
+            </button>
+            <button @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
+              <span v-if="showInfo === 'month-before'" class="info i2">Go back 1 month</span>
             </button>
             <button @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = null">◀ Week
-              <span v-if="showInfo ==='week-before'" class="info i2">Go back 1 week</span>
+              <span v-if="showInfo ==='week-before'" class="info i3">Go back 1 week</span>
             </button>
-            <button @click="changeMonth(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
-              <span v-if="showInfo === 'month-before'" class="info i3">Go back 1 month</span>
+            <button @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
+              <span v-if="showInfo === 'day-before'" class="info i4">Go back 1 day</span>
             </button>
 
-            <div class="list-date">{{ formattedDate }} </div>
+            <div>
+              <div class="list-date">{{ formattedDate }} </div>
+            </div>
 
             <button @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = null">Day ▶
-              <span v-if="showInfo === 'day-after'" class="info i4">Go forward 1 day</span>
+              <span v-if="showInfo === 'day-after'" class="info i5">Go forward 1 day</span>
             </button>
             <button @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = null">Week ▶
-              <span v-if="showInfo === 'week-after'" class="info i5">Go forward 1 week</span>
+              <span v-if="showInfo === 'week-after'" class="info i6">Go forward 1 week</span>
             </button>
             <button @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = null">Month ▶
-              <span v-if="showInfo === 'month-after'" class="info i6">Go forward 1 month</span>
+              <span v-if="showInfo === 'month-after'" class="info i7">Go forward 1 month</span>
+            </button>
+            <button @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = null">Year ▶
+              <span v-if="showInfo === 'year-after'" class="info i8">Go forward 1 year</span>
             </button>
           </div>
         </div>
@@ -119,7 +135,7 @@ body {
 }
 
 .notepad-container {
-  width: 50vw;
+  width: 60vw;
   height: 39rem;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -130,7 +146,7 @@ body {
   overflow: hidden;
   position: relative;
   top: 8rem;
-  left: 25vw;
+  left: 20vw;
 }
 
 .notepad-header {
@@ -188,17 +204,25 @@ body {
 }
 .i3 {
   top: -2rem;
-  left: 10.5rem;
+  left: 10.75rem;
 }
 .i4 {
   top: -2rem;
-  right: 8.5rem;
+  left: 16rem;
 }
 .i5 {
   top: -2rem;
-  right: 3.5rem;
+  right: 13.5rem;
 }
 .i6 {
+  top: -2rem;
+  right: 8.25rem;
+}
+.i7 {
+  top: -2rem;
+  right: 2.75rem;
+}
+.i8 {
   top: -2rem;
   right: -2.25rem;
 }
