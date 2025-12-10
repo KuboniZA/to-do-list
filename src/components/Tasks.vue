@@ -24,14 +24,18 @@
       name: taskName.value,
       details: taskDetails.value,
       date: startDate.value, // this links to ToDoList
+      dateEnd: endDate.value,
       time: startTime.value,
+      timeEnd: endTime.value,
     });
 
     // reset
     taskName.value = "";
     taskDetails.value = "";
     startDate.value = null;
+    endDate.value = null;
     startTime.value = "";
+    endTime.value = "";
   };
 
 </script>
