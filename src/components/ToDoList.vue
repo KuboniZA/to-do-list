@@ -1,7 +1,6 @@
 <script setup>
 import {ref, computed} from "vue";
-
-
+import { useTaskStore } from "@/stores/taskStore.js";
 // Reactive base date (starts at today)
 const currentDate = ref(new Date());
 
@@ -51,6 +50,23 @@ const changeYear = (amount) => {
 
 const showInfo = ref(null);
 
+// *************************** TASK STORE ****************************
+
+const taskStore = useTaskStore();
+
+const filteredTasks = computed(() => {
+  return taskStore.tasks.filter(task => {
+    if (!task.date) return false;
+
+    const taskDate = new Date(task.date).toDateString();
+    const activeDate = new Date(currentDate.value).toDateString();
+
+    return taskDate === activeDate;
+  });
+});
+
+
+
 </script>
 
 <template>
@@ -95,7 +111,16 @@ const showInfo = ref(null);
         </div>
     </div>
     <div class="notepad-paper">
-      <div class="line" />
+      <div v-for="task in filteredTasks" :key="task.id" class="task-line">
+        <div class="task-content">
+          <strong>{{ task.name }}</strong>
+          <small>{{ task.time }}</small>
+          <p>{{ task.details }}</p>
+        </div>
+        <button class="complete-btn" @click="taskStore.removeTask(task.id)">
+          ✅
+        </button>
+      </div>
       <div class="line" />
       <div class="line" />
       <div class="line" />
@@ -224,7 +249,7 @@ body {
 }
 .i8 {
   top: -2rem;
-  right: -2.25rem;
+  right: -2.5rem;
 }
 .list-date {
   margin-right: 1.5rem;

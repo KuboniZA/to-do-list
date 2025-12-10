@@ -1,28 +1,38 @@
 <script setup>
-  import { useRouter } from "vue-router";
+  // import { useRouter } from "vue-router";
   import { ref } from "vue";
   import { VueDatePicker } from "@vuepic/vue-datepicker";
   import '@vuepic/vue-datepicker/dist/main.css'
-  // import { ClockIcon } from "@heroicons/vue/24/outline/index"; // Don't add .d.ts here as I'm not using typescript
-  const taskName = ref();
-  const taskDetails = ref();
-  const startDate = ref();
-  const endDate = ref();
-  const startTime = ref();
-  const endTime = ref();
+  import { useTaskStore } from "@/stores/taskStore.js";
 
-  const router = useRouter();
+  const taskName = ref("");
+  const taskDetails = ref("");
+  const startDate = ref(null);
+  const endDate = ref(null);
+  const startTime = ref("");
+  const endTime = ref("");
+
+  // const router = useRouter();
+
+  // ***************************** HANDLE TASKS *************************************
+
+  const taskStore = useTaskStore();
 
   const enterToDoList = () => {
-    router.push("/to-do-list");
-    // console.log is temporary
-    // console.log(taskName.value);
-    // console.log(taskDetails.value);
-    // alert(startDate.value);
-    // console.log(endDate.value);
-    // console.log(startTime.value);
-    // console.log(endTime.value);
-  }
+    taskStore.addTask({
+      id: Date.now(),
+      name: taskName.value,
+      details: taskDetails.value,
+      date: startDate.value, // this links to ToDoList
+      time: startTime.value,
+    });
+
+    // reset
+    taskName.value = "";
+    taskDetails.value = "";
+    startDate.value = null;
+    startTime.value = "";
+  };
 
 </script>
 
