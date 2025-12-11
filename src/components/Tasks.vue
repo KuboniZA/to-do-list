@@ -45,24 +45,28 @@
     <header class="heading"><h1>ADD TASK BELOW:</h1></header>
     <div class="taskGrid">
       <div class="query q1">Add a task:
+        <p class="required">(Required)</p>
         <input v-model="taskName" placeholder="Add Task Name" class="queryDetails">
+
       </div>
       <div class="query q1">Task Details:
         <input v-model="taskDetails" placeholder="Enter Details" class="queryDetails">
       </div>
       <div class="query q2">Start Date:
-        <VueDatePicker v-model="startDate" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
+        <p class="required">(Required)</p>
+        <VueDatePicker v-model="startDate" placeholder="Click to select" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
       </div>
       <div class="query q2">End Date:
-        <VueDatePicker v-model="endDate" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
+        <VueDatePicker v-model="endDate" placeholder="Click to select" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
       </div>
       <div class="query q3">Start Time:
+        <p class="required">(Required)</p>
       <!-- Writing "time-picker has resolved the issue and I can now just select the time with no date.-->
-        <VueDatePicker v-model="startTime" time-picker :model-type="'HH:mm'" class="queryDetails" />
+        <VueDatePicker v-model="startTime" placeholder="Click to select" time-picker :model-type="'HH:mm'" class="queryDetails" />
       </div>
       <!-- Click on on the minutes to increment by 5 -->
       <div class="query q3">End Time:
-        <VueDatePicker v-model="endTime" time-picker :model-type="'HH:mm'" class="queryDetails" />
+        <VueDatePicker v-model="endTime" placeholder="Click to select" time-picker :model-type="'HH:mm'" class="queryDetails" />
       </div>
     </div>
     <button @click="enterToDoList">SUBMIT</button>
@@ -129,8 +133,17 @@ button {
   right: 27%;
   width: 10rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 15px;
 }
 button:hover {
   cursor: pointer;
+}
+.required {
+  position: absolute;
+  color: lightgrey;
+  font-size: 0.85rem;
+  top: -0.3rem;
+  left: 35%;
 }
 </style>

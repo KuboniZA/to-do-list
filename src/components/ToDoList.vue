@@ -103,8 +103,8 @@ const completeTask = (id) => {
 
   setTimeout(() => {
     lastDeletedTask.value = taskStore.tasks.find(t => t.id === id);
-    taskStore.removeTask(id);
-    showUndo.value = true;
+    // taskStore.removeTask(id);
+    // showUndo.value = true;
 
     setTimeout(() => {
       showUndo.value = false;
