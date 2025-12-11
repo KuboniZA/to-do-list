@@ -181,7 +181,7 @@ const deleteTask = (id) => {
     <div class="notepad-paper">
       <TransitionGroup name="task" tag="div" class="paper-grid">
         <div v-for="(task, index) in filteredTasks" :key="task.id" class="paper-line" :class="{ overdue: task.overdue, warning: task.warning }">
-          <div class="task-content single-line" :class="{ done: completingTaskId === task.id }">
+          <div class="task-name" :class="{ done: completingTaskId === task.id }">
             <span>{{ task.name }}</span>
 
             <span v-if="task.time">
@@ -195,17 +195,22 @@ const deleteTask = (id) => {
 
             <span v-if="task.details" class="task-details">- {{ task.details }}</span>
           </div>
-          <div v-if="showUndo" class="undo-popup">
-            Task deleted
-            <button @click="undoDelete">UNDO</button>
-          </div>
           <div class="task-actions">
             <button class="complete-btn" @click="completeTask(task.id)">✅</button>
             <button class="delete-btn" @click="deleteTask(task.id)">🗑</button>
           </div>
         </div>
       </TransitionGroup>
+      <!-- LINES     -->
       <div v-for="n in 20 - filteredTasks.length" :key="'empty-' + n" class="paper-line empty" />
+      <!-- POPUP  -->
+      <Transition name="fade">
+        <div v-if="showUndo" class="undo-popup">
+        Task deleted
+        <button @click="undoDelete">UNDO</button>
+        </div>
+      </Transition>
+
     </div>
   </div>
 </template>
@@ -381,7 +386,7 @@ button:hover {
 }
 
 /* ✅ Task Content */
-.task-content.single-line {
+.task-name {
   display: inline-flex;
   align-items: flex-end;
   gap: 12px;
@@ -390,19 +395,18 @@ button:hover {
   text-overflow: ellipsis;
   max-width: 78%;
   font-size: 1.05rem;
+  font-weight: 600;
   line-height: 1.15;
+  padding-bottom: 0;
 }
 
-.task-name {
-  font-weight: 600;
-}
 
 .task-time {
   opacity: 0.75;
   font-size: 0.85rem;
 }
 
-.task-enddate {
+.task-end-date {
   font-size: 0.8rem;
   opacity: 0.7;
 }
@@ -433,7 +437,7 @@ button:hover {
   border-left: 4px solid red;
 }
 
-.task-content.done {
+.task-name.done {
   text-decoration: line-through;
   opacity: 0.5;
   transition: all 0.6s ease;
@@ -443,7 +447,7 @@ button:hover {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: black;
+  background: darkblue;
   color: white;
   padding: 12px 18px;
   border-radius: 8px;
@@ -502,6 +506,16 @@ button:hover {
 .task-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 
