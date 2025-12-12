@@ -101,7 +101,7 @@ section {
 }
 .query {
   position: relative;
-  height: 10rem;
+  max-height: 3rem;
   width: 80%;
   left: 2rem;
   font-size: 2rem;
@@ -119,7 +119,7 @@ section {
 .queryDetails {
   border-bottom: 1px dotted #ccc; /* Dotted lines for paper */
   margin-bottom: 5px; /* Space between lines */
-  height: 2rem; /* Ensure lines have height */
+  max-height: 2rem; /* Ensure lines have height */
   border-top: none;
   border-left: none;
   border-right: none;
@@ -132,12 +132,31 @@ button {
   top: 81vh;
   right: 27%;
   width: 10rem;
+  border: none; /* 1px solid #ccc */
+  border-radius: 1000px;
+  padding: 1rem 2rem;
+  background-color: lightblue;
+  color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+button::after {
+  content: "";
+  position: absolute;
+  height: 109%;
+  width: 103%;
+  border-radius: 1000px;
+  background-image: linear-gradient(to bottom right, #539bb2, #2828fc);
+  z-index: -1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ccc;
-  border-radius: 15px;
 }
 button:hover {
   cursor: pointer;
+  z-index: 0;
+  box-shadow: 10px 0 30px rgba(83, 155, 178, 0.5), -10px 0 30px rgba(40, 40, 252, 0.49);
+  color: white;
 }
 .required {
   position: absolute;
