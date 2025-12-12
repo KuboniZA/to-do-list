@@ -96,6 +96,7 @@ const filteredTasks = computed(() => {
 const completingTaskId = ref(null);
 const lastDeletedTask = ref(null);
 const showUndo = ref(false);
+const undoComplete = ref(false);
 
 // Soft delete, task complete.
 const completeTask = (id) => {
@@ -104,7 +105,7 @@ const completeTask = (id) => {
   setTimeout(() => {
     lastDeletedTask.value = taskStore.tasks.find(t => t.id === id);
     // taskStore.removeTask(id);
-    // showUndo.value = true;
+    undoComplete.value = true;
 
     setTimeout(() => {
       showUndo.value = false;
@@ -196,6 +197,7 @@ const deleteTask = (id) => {
             <span v-if="task.details" class="task-details">- {{ task.details }}</span>
           </div>
           <div class="task-actions">
+            <button class="undo-complete-btn" @click="completeTask(task.id)">undo complete</button>
             <button class="complete-btn" @click="completeTask(task.id)">✅</button>
             <button class="delete-btn" @click="deleteTask(task.id)">🗑</button>
           </div>
@@ -344,7 +346,12 @@ button:hover {
   cursor: pointer;
   color: blue;
 }
-
+.undo-complete-btn {
+  background-color: lightgrey;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
 .notepad-paper {
   flex-grow: 1;
   padding: 15px 20px;
