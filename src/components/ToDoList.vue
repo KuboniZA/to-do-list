@@ -114,27 +114,75 @@ const completeTask = (id) => {
   }, 600);
 };
 
+// Undo Delete code
 const undoDelete = () => {
-  if (lastDeletedTask.value) {
-    taskStore.addTask(lastDeletedTask.value);
+  if (!lastDeletedTask.value || !lastDeletedTask.value.task) {
     showUndo.value = false;
-    lastDeletedTask.value = null;
+    return;
+  }
+  let undoDeleteTimeout = null;
+  const { task: deleted, index } = lastDeletedTask.value;
+
+  const exists = taskStore.tasks.some(t => t.id === deleted.id);
+  if (!exists) {
+    if(typeof taskStore.insertTaskAt === "function" ) {
+      taskStore.insertTaskAt(index, JSON.parse(JSON.stringify(deleted)));
+    } else if (typeof taskStore.addTaskAt === "function") {
+      taskStore.addTaskAt(index, JSON.parse(JSON.stringify(deleted)));
+    }
+    else {
+      taskStore.addTask(JSON.parse(JSON.stringify(deleted)));
+    }
+  }
+  showUndo.value = false;
+  lastDeletedTask.value = null;
+  undoCountdown.value = 0;
+
+  if (undoTimerInterval) {
+    undoTimerInterval = null;
   }
 };
 // Hard delete
 const deleteTask = (id) => {
-  lastDeletedTask.value = taskStore.tasks.find(t => t.id === id);
+  const tasks = taskStore.tasks;
+  const idx = tasks.findIndex(t => t.id === id);
+  if (idx === -1) return;
+
+  let copy;
+  try {
+    copy = JSON.parse(JSON.stringify(tasks[idx]));
+  } catch (e) {
+    copy = { ...tasks[idx] };
+  }
+
+  lastDeletedTask.value = {
+    task: copy,
+    index: idx,
+  };
+
   taskStore.removeTask(id);
   showUndo.value = true;
+  undoCountdown.value = 10;
 
-  setTimeout(() => {
-    showUndo.value = false;
-    lastDeletedTask.value = null;
-  }, 5000);
+  if (undoTimerInterval) clearInterval(undoTimerInterval);
+
+  undoTimerInterval = setInterval(() => {
+    undoCountdown.value--;
+
+    if(undoCountdown.value <= 0) {
+      clearInterval(undoTimerInterval);
+      undoTimerInterval = null;
+      taskStore.removeTask(id);
+      showUndo.value = false;
+      lastDeletedTask.value = null;
+    }
+  }, 1000);
 };
 
+// *************************** TIMEOUT BUTTON ***************************
 
-
+const undoCountdown = ref(0);
+let undoTimerInterval = null;
 
 </script>
 
@@ -209,7 +257,7 @@ const deleteTask = (id) => {
       <Transition name="fade">
         <div v-if="showUndo" class="undo-popup">
         Task deleted
-        <button @click="undoDelete">UNDO</button>
+        <button @click="undoDelete">Undo: {{undoCountdown}}</button>
         </div>
       </Transition>
 
