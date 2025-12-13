@@ -55,7 +55,7 @@ img {
 button {
   display: flex;
   position: absolute;
-  height: 4rem;
+  height: 2.5rem;
   width: 8rem;
   margin-bottom: 1rem;
   left: 0;
@@ -68,38 +68,44 @@ button {
   top: 6rem;
 }
 .b2 {
-  top: 11rem;
+  top: 10rem;
 }
 .b3 {
-  top: 16rem;
+  top: 14rem;
 }
 .b4 {
-  top: 21rem;
+  top: 18rem;
 }
 .b5 {
-  top: 26rem;
+  top: 22rem;
 }
 .b6 {
-  top: 31rem;
+  top: 26rem;
 }
 a { /* This remain "a" even though the Vue attribute is RouterLink */
   text-decoration: none;
   color: black;
 }
 button:hover {
-  background-color: blue; /* Alternate colour #f1f1f1 */
+  background-color: rgba(0, 0, 255, 0.7); /* Alternate colour #f1f1f1 */
   color: white;
+  border-top-right-radius: 1000px;
+  border-bottom-right-radius: 1000px;
 }
 button:has(.active) { /* This works, but is greyed out for some reason */
-  border-right: 2px solid transparent;
-  border-image: linear-gradient(to bottom, red, yellow) 1;
+  background-color: blue;
+  border-top-right-radius: 1000px;
+  border-bottom-right-radius: 1000px;
+  /* border-right: 2px solid transparent;
+  border-image: linear-gradient(to bottom, red, yellow) 1; */
 }
 a:hover {
   color: white;
 
 }
 .active {
-  color: blue; /* The font weight changes, but the colour doesn't for some reason */
+
+  color: white; /* The font weight changes, but the colour doesn't for some reason */
   font-weight: bold;
   transform: scale(1.05) translateY(-2px);
 }
