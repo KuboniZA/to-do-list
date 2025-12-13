@@ -245,9 +245,9 @@ let undoTimerInterval = null;
             <span v-if="task.details" class="task-details">- {{ task.details }}</span>
           </div>
           <div class="task-actions">
-            <button class="undo-complete-btn" @click="undoDelete(task.id)">undo complete</button>
+            <button class="undo-complete-btn" @click="undoDelete(task.id)">undo complete ↩︎</button>
             <button class="complete-btn" @click="completeTask(task.id)">✅</button>
-            <button class="delete-btn" @click="deleteTask(task.id)">🗑</button>
+            <button class="delete-btn" @click="deleteTask(task.id)">❌</button>
           </div>
         </div>
       </TransitionGroup>

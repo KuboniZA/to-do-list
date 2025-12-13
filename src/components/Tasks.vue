@@ -80,7 +80,7 @@ section {
 .heading {
   position: relative;
   height: 3rem;
-  width: 70vw;
+  width: 20vw;
   top: 6rem;
   left: 40%;
 ;
@@ -130,7 +130,7 @@ section {
 button {
   position: relative;
   top: 81vh;
-  right: 27%;
+  left: 23%;
   width: 10rem;
   border: none; /* 1px solid #ccc */
   border-radius: 1000px;
