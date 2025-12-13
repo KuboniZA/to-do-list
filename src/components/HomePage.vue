@@ -18,6 +18,8 @@ const goToTasks = () => {
 </template>
 
 <style scoped>
+
+
 section {
   position: absolute;
   display: flex;

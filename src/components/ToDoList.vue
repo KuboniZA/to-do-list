@@ -266,6 +266,7 @@ let undoTimerInterval = null;
 </template>
 
 <style scoped>
+
 body {
   display: flex;
   justify-content: center;

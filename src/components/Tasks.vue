@@ -74,6 +74,7 @@
 </template>
 
 <style scoped>
+
 section {
   display: flex;
 }
