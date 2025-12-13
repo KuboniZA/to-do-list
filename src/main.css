@@ -13,3 +13,6 @@
     opacity: 0;
     transform: translateY(-10px);
 }
+body {
+    background-color: rgba(173, 216, 230, 0.36);
+}

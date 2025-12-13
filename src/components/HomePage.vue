@@ -18,7 +18,9 @@ const goToTasks = () => {
 </template>
 
 <style scoped>
-
+* {
+  background-color: transparent;
+}
 
 section {
   position: absolute;

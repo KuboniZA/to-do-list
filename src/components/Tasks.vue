@@ -75,6 +75,7 @@
 
 <style scoped>
 
+
 section {
   display: flex;
 }
@@ -106,7 +107,7 @@ section {
   width: 80%;
   left: 2rem;
   font-size: 2rem;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 .q1 {
   top: 2rem;
@@ -124,7 +125,7 @@ section {
   border-top: none;
   border-left: none;
   border-right: none;
-  background-color: #ffffff;
+  background-color: transparent;
   width: 100%;
   font-size: 1.2rem;
 }
