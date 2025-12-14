@@ -1,7 +1,10 @@
 <script setup>
 import { RouterLink } from "vue-router";
+import router from "@/router_file/router.js";
 
-
+const pageSwap = (path) => {
+  router.push(path);
+};
 
 </script>
 
@@ -9,28 +12,25 @@ import { RouterLink } from "vue-router";
   <nav class="navBar">
     <img src="@/assets/list_it_logo_2.svg" alt="The List It! Logo" class="logo" />
 
-    <button class="navButton b1">
-      <RouterLink to="/" active-class="active">Home</RouterLink>
-    </button>
-    <button class="navButton b2">
+    <button @click="pageSwap('/to-do-list')" class="navButton b1">
       <RouterLink to="/to-do-list" active-class="active">Today</RouterLink>
     </button>
-    <button  class="navButton b3">
+    <button @click="pageSwap('/add-tasks')"  class="navButton b2">
       <RouterLink to="/add-tasks" active-class="active">Add Tasks</RouterLink>
     </button>
-    <button  class="navButton b4">
+    <button @click="pageSwap('/upcoming')" class="navButton b3">
       <RouterLink to="/upcoming" active-class="active">Upcoming</RouterLink>
     </button>
-    <button  class="navButton b5">
+    <button @click="pageSwap('/search')" class="navButton b4">
       <RouterLink to="/search" active-class="active">Search</RouterLink>
     </button>
-    <button  class="navButton b6">
+    <button @click="pageSwap('/calendar')" class="navButton b5">
       <RouterLink to="/calendar" active-class="active">Calendar</RouterLink>
     </button>
 
-<!--    <button class="navButton">-->
-<!--      <RouterLink to="/calendar">Calendar</RouterLink>-->
-<!--    </button>-->
+    <!--    <button class="navButton b1">-->
+    <!--      <RouterLink to="/" active-class="active">Home</RouterLink>-->
+    <!--    </button>-->
   </nav>
 </template>
 
@@ -68,19 +68,19 @@ button {
   top: 6rem;
 }
 .b2 {
-  top: 10rem;
+  top: 9rem;
 }
 .b3 {
-  top: 14rem;
+  top: 12rem;
 }
 .b4 {
-  top: 18rem;
+  top: 15rem;
 }
 .b5 {
-  top: 22rem;
+  top: 18rem;
 }
 .b6 {
-  top: 26rem;
+  top: 21rem;
 }
 a { /* This remain "a" even though the Vue attribute is RouterLink */
   text-decoration: none;
@@ -91,6 +91,7 @@ button:hover {
   color: white;
   border-top-right-radius: 1000px;
   border-bottom-right-radius: 1000px;
+  transform: scale(102%);
 }
 button:has(.active) { /* This works, but is greyed out for some reason */
   background-color: blue;
