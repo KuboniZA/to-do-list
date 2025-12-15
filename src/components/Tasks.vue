@@ -44,28 +44,31 @@
   <section>
     <header class="heading"><h1>ADD TASK BELOW:</h1></header>
     <div class="taskGrid">
-      <div class="query q1">Add a task:
-        <p class="required">(Required)</p>
+      <div class="query q1">Task Name:
+        <p class="required r1">(Required)</p>
         <input v-model="taskName" placeholder="Add Task Name" class="queryDetails">
 
       </div>
       <div class="query q1">Task Details:
+        <p class="required r2">(Optional)</p>
         <input v-model="taskDetails" placeholder="Enter Details" class="queryDetails">
       </div>
       <div class="query q2">Start Date:
-        <p class="required">(Required)</p>
+        <p class="required r3">(Required)</p>
         <VueDatePicker v-model="startDate" placeholder="Click to select" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
       </div>
       <div class="query q2">End Date:
+        <p class="required r4">(Optional)</p>
         <VueDatePicker v-model="endDate" placeholder="Click to select" :time-config="{enableTimePicker: false}" :formats="{input: 'dd/MM/yyyy', preview: 'dd/MM/yyyy'}" class="queryDetails" />
       </div>
       <div class="query q3">Start Time:
-        <p class="required">(Required)</p>
+        <p class="required r5">(Required)</p>
       <!-- Writing "time-picker has resolved the issue and I can now just select the time with no date.-->
         <VueDatePicker v-model="startTime" placeholder="Click to select" time-picker :model-type="'HH:mm'" class="queryDetails" />
       </div>
       <!-- Click on on the minutes to increment by 5 -->
       <div class="query q3">End Time:
+        <p class="required r6">(Optional)</p>
         <VueDatePicker v-model="endTime" placeholder="Click to select" time-picker :model-type="'HH:mm'" class="queryDetails" />
       </div>
     </div>
@@ -83,14 +86,14 @@ section {
   position: relative;
   height: 3rem;
   width: 20vw;
-  top: 6rem;
-  left: 40%;
+  top: 2rem;
+  left: 44%;
 ;
 }
 .taskGrid {
   position: absolute;
-  top: 12rem;
-  left: 15%;
+  top: 9rem;
+  left: 19%;
   height: 70vh;
   width: 70%;
   display: grid;
@@ -106,7 +109,8 @@ section {
   max-height: 3rem;
   width: 80%;
   left: 2rem;
-  font-size: 2rem;
+  font-size: 1.75rem;
+  font-weight: 400;
   background-color: transparent;
 }
 .q1 {
@@ -131,8 +135,8 @@ section {
 }
 button {
   position: relative;
-  top: 81vh;
-  left: 23%;
+  top: 76vh;
+  left: 28%;
   width: 10rem;
   border: none; /* 1px solid #ccc */
   border-radius: 1000px;
@@ -165,6 +169,11 @@ button:hover {
   color: lightgrey;
   font-size: 0.85rem;
   top: -0.3rem;
-  left: 35%;
 }
+.r1 {left: 35%}
+.r2 {left: 38%}
+.r3 {left: 32%}
+.r4 {left: 30%}
+.r5 {left: 33%}
+.r6 {left: 31%}
 </style>

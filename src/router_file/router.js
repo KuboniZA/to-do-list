@@ -8,11 +8,11 @@ import ToDoList from "@/components/ToDoList.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        {
-            path: '/',
-            name: 'HomePage',
-            component: HomePage
-        },
+        // {
+        //     path: '/',
+        //     name: 'HomePage',
+        //     component: HomePage
+        // },
         // {
         //     path: '/calendar',
         //     name: 'Calendar',
@@ -24,7 +24,7 @@ const router = createRouter({
             component: Tasks
         },
         {
-            path: '/to-do-list',
+            path: '/',
             name: 'ToDoList',
             component: ToDoList
         },

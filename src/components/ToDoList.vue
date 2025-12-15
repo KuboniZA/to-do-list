@@ -279,22 +279,22 @@ body {
 }
 
 .notepad-container {
-  width: 60vw;
-  height: 39rem;
-  background-color: #fff;
+  width: 70%;
+  height: 100vh;
+  /* background-color: #fff; */
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  position: relative;
-  top: 8rem;
-  left: 20vw;
+  position: absolute;
+  top: 0;
+  left: 8rem;
+  z-index: -1;
 }
 
 .notepad-header {
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -406,7 +406,7 @@ button:hover {
   flex-grow: 1;
   padding: 15px 20px;
   position: relative;
-  background-color: #ECE63D70; /* or #fff */
+  /* background-color: #ECE63D70; or #fff */
   line-height: 2.5; /* Adjust for line spacing */
 }
 

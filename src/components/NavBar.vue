@@ -12,8 +12,8 @@ const pageSwap = (path) => {
   <nav class="navBar">
     <img src="@/assets/list_it_logo_2.svg" alt="The List It! Logo" class="logo" />
 
-    <button @click="pageSwap('/to-do-list')" class="navButton b1">
-      <RouterLink to="/to-do-list" active-class="active">Today</RouterLink>
+    <button @click="pageSwap('/')" class="navButton b1">
+      <RouterLink to="/" active-class="active">Today</RouterLink>
     </button>
     <button @click="pageSwap('/add-tasks')"  class="navButton b2">
       <RouterLink to="/add-tasks" active-class="active">Add Tasks</RouterLink>
