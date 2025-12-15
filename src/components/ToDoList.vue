@@ -91,6 +91,8 @@ const filteredTasks = computed(() => {
       });
 });
 
+const todayHasTasks = computed(() => filteredTasks.value.length > 0);
+
 // ********************* UNDO FEATURES **********************
 
 const completingTaskId = ref(null);
@@ -187,86 +189,130 @@ let undoTimerInterval = null;
 </script>
 
 <template>
-  <div class="notepad-container">
-    <div class="notepad-header">
-      <div class="list-name" >
-        <span @click="goToToday" @mouseenter="showTooltip = true" @mouseleave="showTooltip = false">To-Do-list</span>
-        <span v-if="showTooltip" class="tooltip">Click to reset</span>
-      </div>
-        <div class="notepad-ring-holder">
-          <div class="date-controls">
-            <button @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = null">◀ Year
-              <span v-if="showInfo === 'year-before'" class="info i1">Go back 1 year</span>
-            </button>
-            <button @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
-              <span v-if="showInfo === 'month-before'" class="info i2">Go back 1 month</span>
-            </button>
-            <button @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = null">◀ Week
-              <span v-if="showInfo ==='week-before'" class="info i3">Go back 1 week</span>
-            </button>
-            <button @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
-              <span v-if="showInfo === 'day-before'" class="info i4">Go back 1 day</span>
-            </button>
+  <div v-if="todayHasTasks">
+    <div class="notepad-container">
+      <div class="notepad-header">
+        <div class="list-name" >
+          <span @click="goToToday" @mouseenter="showTooltip = true" @mouseleave="showTooltip = false">To-Do-list</span>
+          <span v-if="showTooltip" class="tooltip">Click to reset</span>
+        </div>
+          <div class="notepad-ring-holder">
+            <div class="date-controls">
+              <button @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = null">◀ Year
+                <span v-if="showInfo === 'year-before'" class="info i1">Go back 1 year</span>
+              </button>
+              <button @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
+                <span v-if="showInfo === 'month-before'" class="info i2">Go back 1 month</span>
+              </button>
+              <button @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = null">◀ Week
+                <span v-if="showInfo ==='week-before'" class="info i3">Go back 1 week</span>
+              </button>
+              <button @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
+                <span v-if="showInfo === 'day-before'" class="info i4">Go back 1 day</span>
+              </button>
 
-            <div>
-              <div class="list-date">{{ formattedDate }} </div>
+              <div>
+                <div class="list-date">{{ formattedDate }} </div>
+              </div>
+
+              <button @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = null">Day ▶
+                <span v-if="showInfo === 'day-after'" class="info i5">Go forward 1 day</span>
+              </button>
+              <button @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = null">Week ▶
+                <span v-if="showInfo === 'week-after'" class="info i6">Go forward 1 week</span>
+              </button>
+              <button @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = null">Month ▶
+                <span v-if="showInfo === 'month-after'" class="info i7">Go forward 1 month</span>
+              </button>
+              <button @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = null">Year ▶
+                <span v-if="showInfo === 'year-after'" class="info i8">Go forward 1 year</span>
+              </button>
             </div>
-
-            <button @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = null">Day ▶
-              <span v-if="showInfo === 'day-after'" class="info i5">Go forward 1 day</span>
-            </button>
-            <button @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = null">Week ▶
-              <span v-if="showInfo === 'week-after'" class="info i6">Go forward 1 week</span>
-            </button>
-            <button @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = null">Month ▶
-              <span v-if="showInfo === 'month-after'" class="info i7">Go forward 1 month</span>
-            </button>
-            <button @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = null">Year ▶
-              <span v-if="showInfo === 'year-after'" class="info i8">Go forward 1 year</span>
-            </button>
           </div>
-        </div>
+      </div>
+      <div class="notepad-paper">
+        <TransitionGroup name="task" tag="div" class="paper-grid">
+          <div v-for="(task, index) in filteredTasks" :key="task.id" class="paper-line" :class="{ overdue: task.overdue, warning: task.warning }">
+            <div class="task-name" :class="{ done: completingTaskId === task.id }">
+              <span>{{ task.name }}</span>
+
+              <span v-if="task.time">
+                {{ task.time }}
+                <span v-if="task.timeEnd" class="task-time">→ {{ task.timeEnd }}</span>
+              </span>
+
+              <span v-if="task.dateEnd" class="task-end-date">
+                (Ends {{ new Date(task.dateEnd).toLocaleDateString() }})
+              </span>
+
+              <span v-if="task.details" class="task-details">- {{ task.details }}</span>
+            </div>
+            <div class="task-actions">
+              <button class="undo-complete-btn" @click="undoDelete(task.id)">undo complete ↩︎</button>
+              <button class="complete-btn" @click="completeTask(task.id)">✅</button>
+              <button class="delete-btn" @click="deleteTask(task.id)">❌</button>
+            </div>
+          </div>
+        </TransitionGroup>
+        <!-- LINES     -->
+        <div v-for="n in 20 - filteredTasks.length" :key="'empty-' + n" class="paper-line empty" />
+        <!-- POPUP  -->
+        <Transition name="fade">
+          <div v-if="showUndo" class="undo-popup">
+          Task deleted
+          <button @click="undoDelete">Undo: {{undoCountdown}}</button>
+          </div>
+        </Transition>
+
+      </div>
     </div>
-    <div class="notepad-paper">
-      <TransitionGroup name="task" tag="div" class="paper-grid">
-        <div v-for="(task, index) in filteredTasks" :key="task.id" class="paper-line" :class="{ overdue: task.overdue, warning: task.warning }">
-          <div class="task-name" :class="{ done: completingTaskId === task.id }">
-            <span>{{ task.name }}</span>
+  </div>
+  <div v-else>
+    <div class="empty-day">No tasks added 😬</div>
+      <div class="empty-day-date-controls">
+        <button class="empty-day-btn" @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = null">◀ Year
+          <span v-if="showInfo === 'year-before'" class="info i1">Go back 1 year</span>
+        </button>
+        <button class="empty-day-btn" @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
+          <span v-if="showInfo === 'month-before'" class="info i2">Go back 1 month</span>
+        </button>
+        <button class="empty-day-btn" @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = null">◀ Week
+          <span v-if="showInfo ==='week-before'" class="info i3">Go back 1 week</span>
+        </button>
+        <button class="empty-day-btn" @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
+          <span v-if="showInfo === 'day-before'" class="info i4">Go back 1 day</span>
+        </button>
 
-            <span v-if="task.time">
-              {{ task.time }}
-              <span v-if="task.timeEnd" class="task-time">→ {{ task.timeEnd }}</span>
-            </span>
-
-            <span v-if="task.dateEnd" class="task-end-date">
-              (Ends {{ new Date(task.dateEnd).toLocaleDateString() }})
-            </span>
-
-            <span v-if="task.details" class="task-details">- {{ task.details }}</span>
-          </div>
-          <div class="task-actions">
-            <button class="undo-complete-btn" @click="undoDelete(task.id)">undo complete ↩︎</button>
-            <button class="complete-btn" @click="completeTask(task.id)">✅</button>
-            <button class="delete-btn" @click="deleteTask(task.id)">❌</button>
-          </div>
+        <div>
+          <div class="list-date">{{ formattedDate }} </div>
         </div>
-      </TransitionGroup>
-      <!-- LINES     -->
-      <div v-for="n in 20 - filteredTasks.length" :key="'empty-' + n" class="paper-line empty" />
-      <!-- POPUP  -->
-      <Transition name="fade">
-        <div v-if="showUndo" class="undo-popup">
-        Task deleted
-        <button @click="undoDelete">Undo: {{undoCountdown}}</button>
-        </div>
-      </Transition>
 
-    </div>
+        <button class="empty-day-btn" @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = null">Day ▶
+          <span v-if="showInfo === 'day-after'" class="info i5">Go forward 1 day</span>
+        </button>
+        <button class="empty-day-btn" @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = null">Week ▶
+          <span v-if="showInfo === 'week-after'" class="info i6">Go forward 1 week</span>
+        </button>
+        <button class="empty-day-btn" @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = null">Month ▶
+          <span v-if="showInfo === 'month-after'" class="info i7">Go forward 1 month</span>
+        </button>
+        <button class="empty-day-btn" @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = null">Year ▶
+          <span v-if="showInfo === 'year-after'" class="info i8">Go forward 1 year</span>
+        </button>
+      </div>
   </div>
 </template>
 
 <style scoped>
 
+.empty-day {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  place-items: center;
+  font-size: 6rem;
+  font-weight: lighter;
+}
 
 body {
   display: flex;
@@ -382,6 +428,16 @@ body {
   display: flex;
   position: relative;
   top: 55%;
+}
+.empty-day-date-controls {
+  display: flex;
+  position: absolute;
+  top: 60%;
+  left: 19%;
+  font-size: 1.5rem;
+}
+.empty-day-btn {
+  font-size: 1rem;
 }
 button {
   height: 30px;
