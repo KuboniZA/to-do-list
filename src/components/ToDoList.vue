@@ -289,7 +289,7 @@ body {
   overflow: hidden;
   position: absolute;
   top: 0;
-  left: 8rem;
+  left: 19rem;
   z-index: -1;
 }
 
@@ -451,10 +451,11 @@ button:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 78%;
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 500;
   line-height: 1.15;
   padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 
@@ -466,6 +467,7 @@ button:hover {
 .task-end-date {
   font-size: 0.8rem;
   opacity: 0.7;
+  margin-left: 0.25rem;
 }
 
 .task-details {
@@ -473,6 +475,7 @@ button:hover {
   opacity: 0.85;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-left: 4rem;
 }
 
 

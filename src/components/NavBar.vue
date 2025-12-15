@@ -79,9 +79,7 @@ button {
 .b5 {
   top: 18rem;
 }
-.b6 {
-  top: 21rem;
-}
+
 a { /* This remain "a" even though the Vue attribute is RouterLink */
   text-decoration: none;
   color: black;

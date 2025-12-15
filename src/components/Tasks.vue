@@ -85,11 +85,11 @@ section {
 .heading {
   position: relative;
   height: 3rem;
-  width: 20vw;
+  width: 20%;
   top: 2rem;
   left: 44%;
-;
 }
+h1 {font-weight: 500}
 .taskGrid {
   position: absolute;
   top: 9rem;
