@@ -35,6 +35,12 @@ const router = createRouter({
             component: Search
         },
         {
+            path: '/task/:id',
+            name: 'TaskDetail',
+            component: () => import("@/components/TaskDetail.vue"),
+            props: true,
+        },
+        {
             path: '/:catchAll(.*)',
             name: 'not-found',
             component: PageNotFound
