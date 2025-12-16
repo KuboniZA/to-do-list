@@ -4,6 +4,7 @@ import HomePage from "@/components/HomePage.vue";
 import Tasks from "@/components/Tasks.vue";
 import PageNotFound from "@/components/PageNotFound.vue";
 import ToDoList from "@/components/ToDoList.vue";
+import Search from "@/components/Search.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
             path: '/',
             name: 'ToDoList',
             component: ToDoList
+        },
+        {
+            path: '/search',
+            name: 'Search',
+            component: Search
         },
         {
             path: '/:catchAll(.*)',
