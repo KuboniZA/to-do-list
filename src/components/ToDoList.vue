@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed} from "vue";
+import {ref, computed, watch} from "vue";
 import { useTaskStore } from "@/stores/taskStore.js";
 // Reactive base date (starts at today)
 const currentDate = ref(new Date());
@@ -49,6 +49,11 @@ const changeYear = (amount) => {
 };
 
 const showInfo = ref(null);
+const resetHoverInfo = () => {
+  showInfo.value = null;
+};
+watch(currentDate, resetHoverInfo);
+
 
 // *************************** TASK STORE ****************************
 
@@ -198,16 +203,16 @@ let undoTimerInterval = null;
         </div>
           <div class="notepad-ring-holder">
             <div class="date-controls">
-              <button @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = null">◀ Year
+              <button @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = resetHoverInfo">◀ Year
                 <span v-if="showInfo === 'year-before'" class="info i1">Go back 1 year</span>
               </button>
-              <button @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
+              <button @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = resetHoverInfo">◀ Month
                 <span v-if="showInfo === 'month-before'" class="info i2">Go back 1 month</span>
               </button>
-              <button @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = null">◀ Week
+              <button @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = resetHoverInfo">◀ Week
                 <span v-if="showInfo ==='week-before'" class="info i3">Go back 1 week</span>
               </button>
-              <button @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
+              <button @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = resetHoverInfo">◀ Day
                 <span v-if="showInfo === 'day-before'" class="info i4">Go back 1 day</span>
               </button>
 
@@ -215,16 +220,16 @@ let undoTimerInterval = null;
                 <div class="list-date">{{ formattedDate }} </div>
               </div>
 
-              <button @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = null">Day ▶
+              <button @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = resetHoverInfo">Day ▶
                 <span v-if="showInfo === 'day-after'" class="info i5">Go forward 1 day</span>
               </button>
-              <button @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = null">Week ▶
+              <button @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = resetHoverInfo">Week ▶
                 <span v-if="showInfo === 'week-after'" class="info i6">Go forward 1 week</span>
               </button>
-              <button @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = null">Month ▶
+              <button @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = resetHoverInfo">Month ▶
                 <span v-if="showInfo === 'month-after'" class="info i7">Go forward 1 month</span>
               </button>
-              <button @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = null">Year ▶
+              <button @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = resetHoverInfo">Year ▶
                 <span v-if="showInfo === 'year-after'" class="info i8">Go forward 1 year</span>
               </button>
             </div>
@@ -270,16 +275,16 @@ let undoTimerInterval = null;
   <div v-else>
     <div class="empty-day">No tasks added 😬</div>
       <div class="empty-day-date-controls">
-        <button class="empty-day-btn" @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = null">◀ Year
+        <button class="empty-day-btn" @click="changeYear(-1)" @mouseenter="showInfo = 'year-before'" @mouseleave="showInfo = resetHoverInfo">◀ Year
           <span v-if="showInfo === 'year-before'" class="info i1">Go back 1 year</span>
         </button>
-        <button class="empty-day-btn" @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = null">◀ Month
+        <button class="empty-day-btn" @click="changeYear(-1)" @mouseenter="showInfo = 'month-before'" @mouseleave="showInfo = resetHoverInfo">◀ Month
           <span v-if="showInfo === 'month-before'" class="info i2">Go back 1 month</span>
         </button>
-        <button class="empty-day-btn" @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = null">◀ Week
+        <button class="empty-day-btn" @click="changeWeek(-1)" @mouseenter="showInfo = 'week-before'" @mouseleave="showInfo = resetHoverInfo">◀ Week
           <span v-if="showInfo ==='week-before'" class="info i3">Go back 1 week</span>
         </button>
-        <button class="empty-day-btn" @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = null">◀ Day
+        <button class="empty-day-btn" @click="changeDay(-1)" @mouseenter="showInfo = 'day-before'" @mouseleave="showInfo = resetHoverInfo">◀ Day
           <span v-if="showInfo === 'day-before'" class="info i4">Go back 1 day</span>
         </button>
 
@@ -287,16 +292,16 @@ let undoTimerInterval = null;
           <div class="list-date">{{ formattedDate }} </div>
         </div>
 
-        <button class="empty-day-btn" @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = null">Day ▶
+        <button class="empty-day-btn" @click="changeDay(1)" @mouseenter="showInfo = 'day-after'" @mouseleave="showInfo = resetHoverInfo">Day ▶
           <span v-if="showInfo === 'day-after'" class="info i5">Go forward 1 day</span>
         </button>
-        <button class="empty-day-btn" @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = null">Week ▶
+        <button class="empty-day-btn" @click="changeWeek(1)" @mouseenter="showInfo = 'week-after'" @mouseleave="showInfo = resetHoverInfo">Week ▶
           <span v-if="showInfo === 'week-after'" class="info i6">Go forward 1 week</span>
         </button>
-        <button class="empty-day-btn" @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = null">Month ▶
+        <button class="empty-day-btn" @click="changeMonth(1)" @mouseenter="showInfo = 'month-after'" @mouseleave="showInfo = resetHoverInfo">Month ▶
           <span v-if="showInfo === 'month-after'" class="info i7">Go forward 1 month</span>
         </button>
-        <button class="empty-day-btn" @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = null">Year ▶
+        <button class="empty-day-btn" @click="changeYear(1)" @mouseenter="showInfo = 'year-after'" @mouseleave="showInfo = resetHoverInfo">Year ▶
           <span v-if="showInfo === 'year-after'" class="info i8">Go forward 1 year</span>
         </button>
       </div>
@@ -326,7 +331,7 @@ body {
 
 .notepad-container {
   width: 70%;
-  height: 100vh;
+  min-height: 100%;
   /* background-color: #fff; */
   border: 1px solid #ccc;
   box-shadow: 0 10px 12px rgba(0, 0, 0, 0.5);
